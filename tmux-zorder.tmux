@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# set -e
-
 # Possible configurations
 zorder_bindkey='@zorder_bindkey'
 zorder_max_history='@zorder_max_history'
@@ -10,23 +8,20 @@ zorder=($(tmux show-options -v @zorder))
 scriptname="$0:A"
 [[ $1 == "zorder_show_menu" ]] && local zorder_show_menu=1
 
-
 #Defaults
 default_max_history=8
 default_zorder_bindkey="s"
 
 init() {
-  # echo $scriptname
   bind_key=$(tmux_option "$zorder_bindkey" "$default_zorder_bindkey") 
   tmux bind $bind_key run-shell "$scriptname zorder_show_menu"
   
   tmux set-hook -g after-select-window "run $scriptname"
   tmux set-hook -g after-new-window "run $scriptname"
 
-  #init @zorder
+  #Init @zorder
   active_window=$(get_active_window)
   [[ -z $active_window ]] && zorder=1 || zorder=${active_window}
-  zorder=1
   tmux set  @zorder $zorder
 }
 
@@ -48,8 +43,6 @@ get_active_window() {
 choose_window() {
   local -r zorder_sorted=(${zorder[2,${#zorder}]}) 
   local -r windows_info="$(tmux list-windows -F '#{window_index} #{window_name} #{pane_current_command}')"
-  local -r xcoord=80
-  local -r ycoord=30
   local menu=()
 
   local item=1
@@ -60,15 +53,14 @@ choose_window() {
     item=$((item+1))
   done
   #Insert currently active window
-  window_details=$(echo $windows_info | grep "$zorder[1]")
-  current_active_window=("Current: $window_details" $item "select-window -t $zorder[1]")
+  window_details=$(echo $windows_info | grep "${zorder[1]}")
+  current_active_window=("Current: $window_details" $item "select-window -t ${zorder[1]}")
 
-  tmux display-menu -x $xcoord -y $ycoord -T "Switch window (Z-order)" $menu[@] '' $current_active_window
+  tmux display-menu -x W -y S -T "Switch window (Z-order)" "$menu[@]" '' $current_active_window
 }
 
 main() {
   [[ -z $zorder ]] && init
-  #Get current active window
   local active_window=$(get_active_window)
   local max_history=$(tmux_option "$zorder_max_history" "$default_max_history") 
 
@@ -77,7 +69,7 @@ main() {
   #Store current zorder list
   zorder=($active_window "${(@)zorder:#${active_window}}")
   local S_zorder="$zorder[1,${max_history}]"
-  # echo Debug: Current zorder: $S_zorder
-  tmux set   @zorder "$S_zorder"
+  tmux set @zorder "$S_zorder"
 }
+
 main
