@@ -1,12 +1,17 @@
 # Tmux Z-order Menu
 Tmux plugin for z-order window switching.
 
+### Introduction
+
+A simple tmux plugin to display the current session's windows in z-order,  similiar to  <kbd>⌘ Command</kbd> <kbd>⇥ Tab</kbd>.
+
+![screenshot](https://user-images.githubusercontent.com/47395660/71772480-112ad700-2f54-11ea-9c05-a99a6bee92b9.gif)
 
 ### Key bindings
 
 In any tmux mode:
 
-- `s` - Display menu with current session's windows ordered by last visted
+- `<prefix> s` - Display the windows menu for the current tmux session ordered by last visited.
 
 
 ### Installation with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) (recommended)
@@ -40,8 +45,8 @@ You should now be able to use the plugin.
 
 A couple of configuration options available:
 
-    set -g @zorder_bindkey T      # Bind T to zorder menu
-    set -g @zorder_max_history 15 # Maximum windows remmembered = 15 
+    set -g @zorder_bindkey 'T'      # Bind T to zorder menu
+    set -g @zorder_max_history '15' # Maximum windows remmembered = 15 
     
 
 ### License
