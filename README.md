@@ -3,7 +3,7 @@ Tmux plugin for z-order window switching.
 
 ### Introduction
 
-A simple tmux plugin to display the current session's windows in z-order,  similiar to  <kbd>⌘ Command</kbd> <kbd>⇥ Tab</kbd>.
+A simple tmux plugin to display the current session's windows in z-order,  similar to  <kbd>⌘ Command</kbd> <kbd>⇥ Tab</kbd>.
 
 ![screenshot](https://user-images.githubusercontent.com/47395660/71772480-112ad700-2f54-11ea-9c05-a99a6bee92b9.gif)
 
@@ -45,8 +45,8 @@ You should now be able to use the plugin.
 
 A couple of configuration options available:
 
-    set -g @zorder_bindkey 'T'      # Bind T to zorder menu
-    set -g @zorder_max_history '15' # Maximum windows remmembered = 15 
+    set -g @zorder_bindkey 'T'      # Bind T to Zorder menu
+    set -g @zorder_max_history '15' # Maximum windows remembered = 15 
     
 
 ### License
