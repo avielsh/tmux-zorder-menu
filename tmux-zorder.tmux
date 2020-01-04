@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-set -e
+# set -e
 
 # Possible configurations
 zorder_bindkey='@zorder_bindkey'
@@ -67,7 +67,6 @@ choose_window() {
 }
 
 main() {
-  tmux bind s display-message "asd"
   [[ -z $zorder ]] && init
   #Get current active window
   local active_window=$(get_active_window)
