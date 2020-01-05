@@ -12,9 +12,11 @@ default_max_history=8
 default_zorder_bindkey="Tab"
 default_window_format='#{window_name} #{pane_current_command}'
 
+[[ $1 == show_menu ]] && show_menu=1
+
 init() {
   bind_key=$(tmux_option "$zorder_bindkey" "$default_zorder_bindkey") 
-  tmux bind $bind_key run-shell "$scriptname"
+  tmux bind $bind_key run-shell "$scriptname show_menu"
   tmux set @zorder_init 1
 }
 
@@ -37,16 +39,16 @@ choose_window() {
   local -r windows_info="$(tmux list-windows -F $window_info_format)"
   local menu=()
 
-  local item=1
+  local kbd_key=1
   for i in $(echo ${zorder[2,$max_history]})
   do
     local window_details=$(echo "$windows_info" | grep "^$i")
-    menu+=("Window $window_details" $item "select-window -t $i")
-    item=$((item+1))
+    menu+=("Window $window_details" $kbd_key "select-window -t $i")
+    kbd_key=$((kbd_key+1))
   done
   #Insert currently active window
   window_details=$(echo $windows_info | grep "^${zorder[1]}")
-  current_active_window=("Current: $window_details" $item "select-window -t ${zorder[1]}")
+  current_active_window=("Current: $window_details" $kbd_key "select-window -t ${zorder[1]}")
 
   tmux display-menu -x W -y S -T "Switch window (Z-order)" "$menu[@]" '' $current_active_window
 }
@@ -55,7 +57,7 @@ main() {
   zorder_started=$(tmux show-option -qv "@zorder_init")
   [[ -z $zorder_started ]] && init
 
-  choose_window
+  [[ ! -z $show_menu ]] && choose_window
 }
 
 main
