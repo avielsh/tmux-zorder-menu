@@ -11,7 +11,7 @@ A simple tmux plugin to display the current session's windows in z-order,  simil
 
 In any tmux mode:
 
-- `<prefix> s` - Display the windows menu for the current tmux session ordered by last visited.
+- `<prefix> <tab>` - Display the windows menu for the current tmux session ordered by last visited.
 
 
 ### Installation with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) (recommended)
@@ -45,8 +45,8 @@ You should now be able to use the plugin.
 
 A couple of configuration options available:
 
-    #bind T to Zorder menu
-    set -g @zorder_bindkey 'T'      
+    #bind Ctrl+q to Zorder menu
+    set -g @zorder_bindkey 'c-q'      
     
     #maximum windows remembered=15 
     set -g @zorder_max_history '15' 

@@ -9,7 +9,7 @@ zorder_window_info_format='@zorder_window_info_format'
 
 #Defaults
 default_max_history=8
-default_zorder_bindkey="s"
+default_zorder_bindkey="Tab"
 default_window_format='#{window_name} #{pane_current_command}'
 
 init() {
