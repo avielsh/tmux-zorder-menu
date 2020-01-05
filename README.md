@@ -45,9 +45,14 @@ You should now be able to use the plugin.
 
 A couple of configuration options available:
 
-    set -g @zorder_bindkey 'T'      # Bind T to Zorder menu
-    set -g @zorder_max_history '15' # Maximum windows remembered = 15 
+    #bind T to Zorder menu
+    set -g @zorder_bindkey 'T'      
     
+    #maximum windows remembered=15 
+    set -g @zorder_max_history '15' 
+    
+    #set the window information format according to tmux's FORMATS.
+    set -g @zorder_window_info_format '#{window_flags} #{pane_current_command'
 
 ### License
 
