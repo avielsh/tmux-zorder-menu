@@ -41,6 +41,10 @@ Reload TMUX environment:
 
 You should now be able to use the plugin.
 
+### Requirements
+
+tmux-zorder-menu requires tmux > 3.0.
+
 ### Configuration
 
 A couple of configuration options available:
