@@ -12,7 +12,6 @@ default_max_history=8
 default_zorder_bindkey="Tab"
 default_window_format='#{window_name} #{pane_current_command}'
 
-[[ $1 == show_menu ]] && show_menu=1
 
 init() {
   bind_key=$(tmux_option "$zorder_bindkey" "$default_zorder_bindkey") 
@@ -48,9 +47,26 @@ choose_window() {
   #Insert currently active window
   current_window_details=$(echo $windows_info | grep "^${zorder[1]}")
   current_active_window=("Current: $current_window_details" $kbd_key "select-window -t ${zorder[1]}")
-  
+  # echo Debug
+   # echo "$menu[@]"
   tmux display-menu -x W -y S -T "Switch window (Z-order)" "$menu[@]" '' $current_active_window
 }
+
+usage() {
+cat <<EOF
+Tmux Z-order menu plugin
+Usage: $scriptname:t [show_menu]
+Run the script without arguments to initialize with tmux
+
+show_menu - Display the window switch menu
+-h|--help - Prints this help
+
+EOF
+
+}
+#parse arguments
+[[ $1 == show_menu ]] && show_menu=1
+[[ $1 == "-h" || $1 == "--help" ]] && usage && return 0
 
 main() {
   zorder_started=$(tmux show-option -qv "@zorder_init")
